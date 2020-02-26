@@ -1,0 +1,8 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0-bionic
+
+ADD ./linux_64_18.0.37886_unicode.x86_64.deb /
+RUN dpkg -i /linux_64_*_unicode.x86_64.deb
+
+ENV RIDE_INIT="SERVE:*:4502"
+
+CMD dyalog
