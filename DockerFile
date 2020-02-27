@@ -1,8 +1,12 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0-bionic
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1.102-bionic
 
-ADD ./linux_64_18.0.37886_unicode.x86_64.deb /
-RUN dpkg -i /linux_64_*_unicode.x86_64.deb
+ARG DYALOG_DEB_PKG
+
+ADD ./$DYALOG_DEB_PKG /
+RUN dpkg -i /$DYALOG_DEB_PKG
 
 ENV RIDE_INIT="SERVE:*:4502"
+ENV DYALOG="/opt/mdyalog/18.0/64/unicode"
+ENV LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$DYALOG"
 
-CMD dyalog
+CMD $DYALOG/dyalog
